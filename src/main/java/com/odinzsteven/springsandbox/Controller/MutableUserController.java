@@ -21,12 +21,17 @@ public class MutableUserController {
         return userService.findAll();
     }
 
-    @PostMapping("create")
+    @GetMapping("rename")
+    public MutableUser rename(@RequestParam String oldName, @RequestParam String newName) {
+        return userService.rename(oldName, newName);
+    }
+
+    @GetMapping("create")
     public MutableUser create(@RequestParam String name) {
         return userService.create(name);
     }
 
-    @DeleteMapping("delete")
+    @GetMapping("delete")
     public String delete(@RequestParam String name) {
         userService.delete(name);
         return "user deleted: " + name;

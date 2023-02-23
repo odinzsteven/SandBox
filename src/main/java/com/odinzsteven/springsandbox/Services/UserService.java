@@ -7,9 +7,11 @@ import java.util.Collection;
 import java.util.Map;
 
 public interface UserService<U extends User> {
-    Collection<U> findAll();
-
     U create(String name);
+
+    U rename(String name, String newName);
+
+    Collection<U> findAll();
 
     void delete(String name);
     

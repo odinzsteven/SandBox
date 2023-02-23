@@ -19,6 +19,12 @@ public class MutableUser implements User {
     public MutableUser() {
     }
 
+    public MutableUser(MutableUser entity) {
+        setId(entity.getId());
+        setName(entity.getName());
+        setVersion(entity.getVersion());
+    }
+
     @Override
     public Long getId() {
         return id;

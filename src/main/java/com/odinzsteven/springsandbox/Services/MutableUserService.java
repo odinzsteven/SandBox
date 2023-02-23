@@ -1,30 +1,22 @@
 package com.odinzsteven.springsandbox.Services;
 
 import com.odinzsteven.springsandbox.Entity.MutableUser;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
+@Service
+public class MutableUserService extends AbstractUserService<MutableUser> {
 
-public interface MutableUserService {
-    Collection<MutableUser> findAll();
+    public MutableUserService(JpaRepository<MutableUser, Long> repo) {
+        super(repo);
+    }
 
-    MutableUser save(MutableUser mutableUser);
-
-    MutableUser addMutableUser(String name);
-
-    void delete(MutableUser mutableUser);
-
-    void deleteAll();
-    
-
-    int getCount();
-
-    MutableUser getFirstUser();
-
-    MutableUser getLastUser();
-
-    Collection<MutableUser> findMutableUsers();
-
-    Map.Entry<String, MutableUser>[] getBounds();
+    @Override
+    public MutableUser create(String name) {
+        return users.computeIfAbsent(name, (username) -> {
+            final MutableUser user = new MutableUser();
+            user.setName(username);
+            return repo.save(user);
+        });
+    }
 }

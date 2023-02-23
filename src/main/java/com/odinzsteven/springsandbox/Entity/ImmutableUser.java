@@ -1,14 +1,11 @@
 package com.odinzsteven.springsandbox.Entity;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Immutable;
 
 import java.util.Objects;
 
 @Entity
-@Immutable
-@Table(name = "immutable_user")
-public final class ImmutableUser implements User {
+public class ImmutableUser implements User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +16,10 @@ public final class ImmutableUser implements User {
 
     @Version
     private final Long version;
+
+    public static ImmutableUser create(String name) {
+        return new ImmutableUser(null, name, 0L);
+    }
 
     public ImmutableUser() {
         this.id = null;
@@ -33,9 +34,7 @@ public final class ImmutableUser implements User {
     }
 
     public ImmutableUser(MutableUser mutableUser) {
-        this.id = mutableUser.getId();
-        this.name = mutableUser.getName();
-        this.version = mutableUser.getVersion();
+        this(mutableUser.getId(), mutableUser.getName(), mutableUser.getVersion());
     }
 
     @Override
@@ -72,3 +71,4 @@ public final class ImmutableUser implements User {
                 ", version='" + version + '\'' +
                 '}';
     }
+}

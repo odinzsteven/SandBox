@@ -21,6 +21,8 @@ public class ImmutableUserService extends AbstractUserService<ImmutableUser> {
     public ImmutableUser rename(String oldName, String newName) {
         for (int i = 0; i < 10; i++) {
             final ImmutableUser oldUser = users.get(oldName);
+            if (oldUser == null)
+                throw new RuntimeException("user " + oldName + " not found!");
             final ImmutableUser newUser = new ImmutableUser(oldUser.getId(), newName, oldUser.getVersion());
             final ImmutableUser userWithSameName = users.putIfAbsent(newName, newUser);
             if (userWithSameName == null) {

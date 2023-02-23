@@ -25,6 +25,8 @@ public class MutableUserService extends AbstractUserService<MutableUser> {
     public MutableUser rename(String oldName, String newName) {
         for (int i = 0; i < 10; i++) {
             final MutableUser oldUser = users.get(oldName);
+            if (oldUser == null)
+                throw new RuntimeException("user " + oldName + " not found!");
             final MutableUser newUser = new MutableUser(oldUser);
             newUser.setName(newName);
             final MutableUser userWithSameName = users.putIfAbsent(newName, newUser);

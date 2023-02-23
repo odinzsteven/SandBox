@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 @Entity
-public class MutableUser {
+public class MutableUser implements User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -19,12 +19,18 @@ public class MutableUser {
     public MutableUser() {
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     public void setId(Long id) {
@@ -33,6 +39,10 @@ public class MutableUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     @Override

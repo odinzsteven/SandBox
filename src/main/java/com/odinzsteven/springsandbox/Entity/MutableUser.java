@@ -68,6 +68,7 @@ public class MutableUser implements User {
         return "MutableUser{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", version='" + version + '\'' +
                 '}';
     }
 }
